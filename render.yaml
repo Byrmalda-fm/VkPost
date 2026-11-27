@@ -1,0 +1,35 @@
+# Blueprint для Render (бесплатный тариф). Подробности и шаги — в README, раздел «Render».
+services:
+  - type: web
+    name: gray-editor
+    runtime: docker
+    plan: free
+    region: frankfurt          # ближайший к России регион Render
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # --- секреты: значения вводятся в панели Render, в Git их нет ---
+      - key: BOT_TOKEN
+        sync: false
+      - key: OWNER_ID
+        sync: false
+      - key: VK_USER_TOKEN
+        sync: false
+      - key: VK_GROUP_ID
+        sync: false
+      - key: VK_ADMIN_TOKEN
+        sync: false
+      # Строка подключения к внешнему бесплатному Postgres (Neon). Файлы на Render не сохраняются!
+      - key: DATABASE_URL
+        sync: false
+      # --- настройки ---
+      - key: TIMEZONE
+        value: Europe/Moscow
+      - key: SEND_TIME            # во сколько уходят ВСЕ посты (по TIMEZONE)
+        value: "11:00"
+      - key: REPORT_TIME
+        value: "11:00"
+      - key: STARTUP_NOTIFY       # не писать «запущен» после каждого пробуждения
+        value: "false"
+      - key: DATA_DIR
+        value: /app/data

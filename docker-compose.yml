@@ -1,0 +1,16 @@
+services:
+  gray-editor:
+    build: .
+    container_name: gray-editor
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATA_DIR: /app/data
+      TZ: Europe/Moscow
+    volumes:
+      - ./data:/app/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
